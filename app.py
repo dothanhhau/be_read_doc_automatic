@@ -14,6 +14,10 @@ translate_client = translate.Client()
 
 app = Flask(__name__)
 
+@app.route('/')
+def home():
+  return 'Xin chào server này dành cho môn cô Liên: Thực hành thiết kế hệ thống'
+
 @app.route('/api/texttospeech', methods=['POST'])
 def tts():
   url = str(os.getenv('URL_TTS'))
