@@ -16,7 +16,7 @@ app = Flask(__name__)
 def home():
   return 'Xin chào server này dành cho môn cô Liên: Thực hành thiết kế hệ thống'
 
-@app.route('/api/texttospeech', methods=['POST'])
+@app.route(str(os.getenv('PATH_TTS')), methods=['POST'])
 def tts():
   url = str(os.getenv('URL_TTS'))
 
@@ -64,7 +64,7 @@ def tts():
     return jsonify(status=500, data=e)
     
 
-@app.route('/api/summary', methods=['POST'])
+@app.route(str(os.getenv('PATH_SUMMARY')), methods=['POST'])
 def summary():
   data = {
     "text": request.form.get('text'),
@@ -77,7 +77,7 @@ def summary():
     return jsonify(status=500, data=e)
     
 
-@app.route('/api/translate', methods=['POST'])
+@app.route(str(os.getenv('PATH_TRANSLATE')), methods=['POST'])
 def trans():
   url = str(os.getenv('URL_TRANSLATE'))
   payload = {
