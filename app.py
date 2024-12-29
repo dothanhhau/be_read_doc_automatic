@@ -5,12 +5,10 @@ import google.generativeai as genai
 import os
 import json
 import base64
-from google.cloud import translate_v2 as translate
 load_dotenv()
 
 genai.configure(api_key=str(os.getenv('GOOGLE_API_KEY')))
 model = genai.GenerativeModel(str(os.getenv('MODLE_GEMINI')))
-translate_client = translate.Client()
 
 app = Flask(__name__)
 
@@ -81,13 +79,21 @@ def summary():
 
 @app.route('/api/translate', methods=['POST'])
 def trans():
-  data = {
-    "text": request.form.get('text'),
-    "lang": request.form.get('lang')
+  url = str(os.getenv('URL_TRANSLATE'))
+  payload = {
+    'q': request.form.get('text'),
+    'target': request.form.get('lang'),
+    'key': str(os.getenv('GOOGLE_API_KEY'))
   }
+  
   try:
-    translation = translate_client.translate(data['text'], target_language=data['lang'])
-    return jsonify(status=200, data=translation['translatedText'])
+    response = requests.post(url, data=payload)
+    
+    if response.status_code == 200:
+      result = response.json()
+      return jsonify(status=200, data=result['data']['translations'][0]['translatedText'])
+    else:
+      return jsonify(status=response.status_code, data=response.text)
   except Exception as e:
     return jsonify(status=500, data=e)
 
