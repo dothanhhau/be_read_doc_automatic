@@ -5,12 +5,14 @@ import google.generativeai as genai
 import os
 import json
 import base64
+from flask_cors import CORS
 load_dotenv()
 
 genai.configure(api_key=str(os.getenv('GOOGLE_API_KEY')))
 model = genai.GenerativeModel(str(os.getenv('MODLE_GEMINI')))
 
 app = Flask(__name__)
+CORS(app)
 
 @app.route('/')
 def home():
