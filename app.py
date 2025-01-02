@@ -58,8 +58,10 @@ def tts():
 
     if response.status_code == 200:
       audio_content = response.json()['audioContent']
-      audio_data = base64.b64decode(audio_content)
-      return jsonify(status=200, data=str(audio_data))
+      return jsonify(status=200, data=str(audio_content))
+
+      # audio_data = base64.b64decode(audio_content)
+      # return jsonify(status=200, data=str(audio_data))
     else:
       return jsonify(status=response.status_code, data=response.text)
   except Exception as e:
