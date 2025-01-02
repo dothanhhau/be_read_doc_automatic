@@ -18,7 +18,7 @@
     <span id="speedValue">1x</span>
 
     <script>
-      const API_URL = "http://127.0.0.1:5000"; // Thay bằng URL thực tế của API
+      const API_URL = "http://127.0.0.1:5000/api/texttospeech"; // Thay bằng URL thực tế của API
       let audioBase64 = ""; // Biến lưu trữ Base64 từ API
       let audioPlayer = document.getElementById("audioPlayer");
       let audioContext;
@@ -28,8 +28,8 @@
       async function getAndAdjustAudio() {
         try {
           const text =
-            `Xin chào`; // Nội dung văn bản cần chuyển thành âm thanh
-          const lang = "vi-VN"; // Ngôn ngữ
+            `Xin chào server này dành cho môn cô Liên: Thực hành thiết kế hệ thống`; // Nội dung văn bản cần chuyển thành âm thanh
+          const lang = "en-US"; // Ngôn ngữ
           const gender = "MALE"; // Giới tính
 
           // Xây dựng chuỗi x-www-form-urlencoded
