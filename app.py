@@ -28,13 +28,15 @@ def tts():
     "gender": request.form.get('gender')
   }
 
-  # print(data)
+  print(data)
 
   if data['gender'] == "MALE":
     name = str(os.getenv('VOICE_NAME_MALE'))
   else:
     name = str(os.getenv('VOICE_NAME_FEMALE'))
 
+  name = f'{data['lang']}-{name}'
+  
   payload = {
     "input": {"text": data['text']},
     "voice": {
